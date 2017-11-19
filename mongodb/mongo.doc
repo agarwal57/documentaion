@@ -1,1 +1,48 @@
 MongoDB: is an open-source document database that provides high performance, high availability, and automatic scaling.
+
+Document Database: A record in MongoDB is a document, which is a data structure composed of field and value pairs.
+MongoDB docs are similar to JSON objects. The values of fields may include other douments, arrays and array of documents
+
+Advantages of using documents are:
+1. Documents correspond to native data types in many programming languages
+2. Embedded documents and arrays reduce need for expensive joins
+3. Dynamic schema supports fluent polymorphism
+
+Key Features:
+1. High Performance: MongDB provides high performance data persistence. In particular,
+  a) support for embedded data models reduces I/O activity on database system.
+  b) Indexes support faster queries and can include keys from embedded documents and arrays
+
+2. Rich Query Language: MongoDB supports a rich query language to support CRUD as well as:
+  a) Data Aggregation
+  b) Text Search and GeoSpatial Queries
+  
+3. High Availability: Mongo DB's replication facility, called replica set, provides:
+  a) automatic failover
+  b) data redundancy
+  
+4. Horizontal Scalability: MongoDB provides horizontal functionality as its core functionality:
+  a) Sharding distributes data across a cluster of machines
+  b) MongoDB 3.4 supports creating zones of data based on the shard key. In a balanced cluster, MongoDB directs reads and writes covered by a zone only to those shards inside the zone.
+  
+5. Support for Multiple Storage Engines
+
+
+MongoDB stores data as BSON documents [binary representation of JSON] in collections. MongoDB hold collection of documents.
+
+Query Documents:
+1. Select All Documents
+  db.collection('<collection-name>').find({});
+2. Match an Embedded Document - this requires an exact match including the order of fields
+  db.collection('inventory').find({size: { h: 14, w: 21, uom: "com" } });
+3. Match a field in Embedded Document
+  db.collection('inventory').find({ "size.uom": "in" });
+4. Match an element in an array
+  db.collection('inventory').find({ tags: "red" });
+5. Match an Array Exactly
+  db.collection('inventory').find({ tags: ["red", "blank"] });
+  
+  
+
+
+Views:
