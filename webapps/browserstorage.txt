@@ -1,0 +1,71 @@
+Why Store Data on the Client?
+The main reason is practicality. JavaScript code running on the browser does not necessarily need to send all information to the server. There are several use cases:
+
+1. You want to increase performance. You can cache data client-side so it can be retrieved without additional server requests.
+2. You have a significant quantity of client-side-only data, e.g. HTML strings or widget configuration settings.
+3. You want you make your application work off-line.
+
+Storage Options:
+
+A) JavaScript Variables [Past, Present and Future]
+
+Advantages:
+1. fastest and simplest solution
+2. no need to serialize or deserialize data
+3. ideal for SPAs
+
+Disadvantages:
+1. very fragile - linking elsewhere, refreshing or closing the tab will wipe all the data
+2. global variables can be overwritten and analyzed by 3rd party scripts
+
+B) Cookies [Past, Present and Future]: are domain-specific chunks of text data. They sound tasty, but cookie handling is awkward in JavaScript since the basic document.cookie string must be parsed
+
+Advantages:
+1. a reliable method of retaining state between the client and server
+2. by setting an expirty date, cookie data will persist beyond page refreshes and tab closing
+3. cookies are supported in all modern browsers
+
+Disadvantages:
+1. clunky js implementation - cookie handling library is required
+2. values are strings only; other data must be serialized using methods such as JSON.stringify and JSON.parse
+3. storage space is limited - do not depend on having more than 20 cookies of 4KB each
+4. can be deleted or blocked
+5. unfairly labeled as thread to internet privacy; need to comply with regional rules and regulations [http://www.sitepoint.com/europe-website-cookie-privacy-law/]
+
+The flip-side of cookie client/server sharing causes the biggest technical issue. Cookie data is sent in the HTTP header of every request and response. It’s therefore appended to every HTML page, image, CSS file, JavaScript file, Ajax call, etc. If you had 50Kb of cookie data and downloaded ten 1KB images, it would result in one megabyte of additional network traffic.
+
+C) window.name [Past, Present]: can be used to set a single string value which persists between browser refreshes or linking elsewhere and clicking back
+
+Advantages:
+1. simple to use
+2. data is retained on the client only and never sent to the server
+3. the property permits several megabytes of information
+4. wide browser support
+
+Disadvantages:
+1. data is lost when the tab or browser is closed
+2. only a single string value can be stored — serialization will be necessary
+3. pages in other domains can read or change window.name data
+
+window.name was never designed for data storage. It’s a hack and vendors could drop support at any time. For that reason, it’s best to use alternative storage options although the technique has been adopted within legacy browser shims and polyfills.
+
+
+D) HTML5 Web SQL Database [Past]: The Web SQL Database was an initial attempt by vendors to bring SQL-based relational databases to the browser. It has been implemented in Chrome, Safari and Opera 15+, but was opposed by Mozilla and Microsoft in favor of IndexedDB.
+
+Advantages:
+1. designed for robust client-side data storage and access
+2. it uses SQL like many server side applications
+3. some support on Webkit/Blink desktop and mobile browsers
+
+Disadvantages:
+1. SQL never seemed appropriate for client-side development
+2. the database schema must be defined up-front
+3. marginal browser support and the Webkit/Blink teams may eventually drop it
+4. the W3C specification was abandoned in 2010
+
+In summary: don’t use a Web SQL Database!
+
+E) HTML5 Web Storage [Present, Future]:
+
+
+References: https://www.sitepoint.com/html5-browser-storage-past-present-future/
