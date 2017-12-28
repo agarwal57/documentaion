@@ -65,7 +65,54 @@ Disadvantages:
 
 In summary: don’t use a Web SQL Database!
 
-E) HTML5 Web Storage [Present, Future]:
+E) HTML5 Web Storage [Present, Future]: WebStorage provides two objects with the identical APIs:
+window.localStorage - retain persistent data
+code.sessionStorage - to retain session-only data which is lost when tab is closed
+Domain-specific strings are stored using name/value pairs. Unlike cookies, the storage limit is far larger (at least 5MB) and information is never transferred to the server.
+
+Advantages:
+1. easy to use with simple name/value pairs
+2. session and persistent storage options are available
+3. an event model is available to keep other tabs and windows synchronized
+4. wide support on desktop and mobile browsers including IE8+
+5. Web Storage polyfills are available for older browsers which fall-back to cookie and window.name storage methods
+
+Disadvantages:
+1. string values only - serialization may be necessary
+2. unstructured data with no transactions, indexing or searching facilities
+3. may exhibit poor performance on large datasets
+
+
+F) HTML5 IndexedDB [Future]: IndexedDB provides a structured, transactional, high-performance NoSQL-like data store with a synchronous and asynchronous API. There’s too much to document here, but the API permits you to create databases, data stores and indexes, handle revisions, populate data using transactions, run non-blocking queries, and traverse data sets using cursors.
+
+Advantages:
+1. designed for robust client-side data storage and access
+2. good support in modern desktop browsers: IE10+, Firefox 23+, Chrome 28+ and Opera 16+
+
+Disadvantages:
+1. the API is very new and subject to revision
+2. little support in older and mobile browsers
+3. a large and complex API — it would be difficult and largely impractical to create a IndexedDB polyfill
+4. like any NoSQL store, data is unstructured which can lead to integrity issues
+
 
 
 References: https://www.sitepoint.com/html5-browser-storage-past-present-future/
+Other References:
+1. http://dev.w3.org/html5/webstorage/
+2. http://www.sitepoint.com/an-overview-of-the-web-storage-api/
+3. https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills#web-storage-localstorage-and-sessionstorage
+4. http://docs.webplatform.org/wiki/apis/indexedDB
+
+G) HTML5 File API [Future]: The HTML5 File API is being extended to support writing as well as reading sequential data on the local file system. Your domain is provided with a complete sand-boxed hierarchical file system to use as it chooses.
+
+Advantages:
+1. large text and binary files can be created and stored
+2. performance should be good
+
+Disadvantages:
+1. a very early specification which is subject to revision
+2. an obvious security risk unless file writing is restricted
+3. little support in current browsers and polyfills may be impractical
+4. unstructured data with no transactions, indexing or searching facilties
+
